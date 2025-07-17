@@ -9,7 +9,7 @@ require_login();
 <body>
 <h1>User Dashboard</h1>
 <p>Welcome user!</p>
-<p><a href="marketing.php">Create Marketing Item</a></p>
+<p><a href="analytics.php">View Analytics</a></p>
 <p><a href="logout.php">Logout</a></p>
 </body>
 </html>

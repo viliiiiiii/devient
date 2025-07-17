@@ -20,4 +20,24 @@ function require_login() {
         exit();
     }
 }
+
+function escape($str) {
+    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+}
+
+function current_user_role($conn) {
+    if (!is_logged_in()) return null;
+    $stmt = $conn->prepare('SELECT role FROM users WHERE id = ?');
+    $stmt->bind_param('i', $_SESSION['user_id']);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc()['role'] ?? null;
+}
+
+function current_user_company($conn) {
+    if (!is_logged_in()) return null;
+    $stmt = $conn->prepare('SELECT company_id FROM users WHERE id = ?');
+    $stmt->bind_param('i', $_SESSION['user_id']);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc()['company_id'] ?? null;
+}
 ?>

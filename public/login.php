@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h1>OTP Login</h1>
-    <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
+    <?php if (!empty($error)) echo "<p style='color:red;'>".escape($error)."</p>"; ?>
     <form method="POST">
         <label>Email:</label>
         <input type="email" name="email" required>

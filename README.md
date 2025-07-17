@@ -1,6 +1,6 @@
 # NFC & QR Marketing App
 
-This is a simple PHP web application demonstrating OTP-based login via email. Users can register and log in with a one-time password sent to their email address. Depending on their role (user, owner, admin) they can access different dashboards. Users can also create marketing items that generate QR codes for sharing URLs.
+This project is a small demonstration of an OTP based SaaS for NFC and QR code marketing.  Users receive a one-time password via email and, once authenticated, may access pages based on their role.  Companies have their own marketing items and tags so that traffic and scans can be analysed.  Owners can manage everything, admins manage a single company, while normal users can only view analytics.
 
 ## Setup
 1. Create a MySQL database named `marketing_app` and import `init_db.sql`.
@@ -11,7 +11,9 @@ This is a simple PHP web application demonstrating OTP-based login via email. Us
 ## Features
 - Registration page
 - OTP login via email
-- User, owner and admin dashboards
-- Create and view marketing items with QR codes
+- Companies with admins and users
+- Owner and admin dashboards for managing tags and marketing items
+- Tracking of tag interactions for basic analytics
+- Output escaped with `htmlspecialchars` to limit XSS vectors
 
 This is a minimal example meant for demonstration and can be extended to support NFC or additional marketing features.

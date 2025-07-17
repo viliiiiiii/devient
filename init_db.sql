@@ -1,9 +1,16 @@
+CREATE TABLE IF NOT EXISTS companies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    company_id INT DEFAULT NULL,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role ENUM('user','owner','admin') DEFAULT 'user'
+    role ENUM('user','owner','admin') DEFAULT 'user',
+    FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS otps (
@@ -16,9 +23,27 @@ CREATE TABLE IF NOT EXISTS otps (
 
 CREATE TABLE IF NOT EXISTS marketing_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    company_id INT NOT NULL,
     user_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     url TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tags (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    company_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tag_interactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tag_id INT NOT NULL,
+    user_id INT DEFAULT NULL,
+    viewed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
